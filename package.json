@@ -1,0 +1,23 @@
+{
+  "name": "raheem-academy",
+  "version": "1.0.0",
+  "description": "Raheem™ Academy — تعليم البرمجة من الصفر",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "better-sqlite3-session-store": "^0.1.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-session": "^1.19.0",
+    "google-auth-library": "^11.2.0"
+  }
+}

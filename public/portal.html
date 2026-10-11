@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b16">
+<title>Raheem | Your Workspace</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#080b16;
+  --panel:#11182a;
+  --text:#f7f8ff;
+  --muted:#a6b0c8;
+  --blue:#438cff;
+  --purple:#9868ff;
+  --line:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 12% 10%,#5633a52c,transparent 40%),
+    radial-gradient(ellipse at 90% 90%,#1d6ad329,transparent 40%),
+    var(--bg);
+}
+main{width:min(1180px,100%);margin:auto;padding:clamp(20px,4vw,48px)}
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;padding:14px 0 34px;border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:15px}
+.logo{
+  display:grid;place-items:center;width:58px;height:58px;
+  border-radius:19px;background:linear-gradient(135deg,var(--purple),var(--blue));
+  font-size:27px;font-weight:900;box-shadow:0 10px 35px #5c54d344;
+}
+.brand h1{font-size:clamp(21px,3vw,30px);margin:0;letter-spacing:-.6px}
+.brand p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.status{
+  padding:9px 13px;border:1px solid var(--line);border-radius:30px;
+  color:#c6d5ff;background:#ffffff06;font-size:12px;white-space:nowrap;
+}
+.intro{padding:38px 0 10px}
+.eyebrow{color:#b8a2ff;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800}
+.intro h2{font-size:clamp(30px,5vw,48px);letter-spacing:-1.2px;margin:12px 0}
+.intro p{color:var(--muted);max-width:680px;line-height:1.8;margin:0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:30px}
+.card{
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+  padding:clamp(22px,3vw,34px);min-height:430px;
+  border:1px solid var(--line);border-radius:25px;
+  background:linear-gradient(145deg,#151e32,#0e1322);
+}
+.card:before{
+  content:"";position:absolute;width:220px;height:220px;right:-100px;top:-110px;
+  border-radius:50%;background:#438cff15;pointer-events:none;
+}
+.card.academy{background:linear-gradient(145deg,#211739,#111322);border-color:#7353a64f}
+.card.academy:before{background:#9868ff20}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.symbol{
+  display:grid;place-items:center;width:60px;height:60px;
+  border-radius:19px;background:#438cff19;font-size:29px;
+}
+.academy .symbol{background:#9868ff20}
+.tag{font-size:11px;color:#b9caff;border:1px solid #438cff55;border-radius:30px;padding:7px 10px}
+.academy .tag{color:#d9c6ff;border-color:#9868ff55}
+.card h3{font-size:clamp(25px,3vw,34px);margin:24px 0 9px}
+.desc{color:var(--muted);line-height:1.8;margin:0 0 20px}
+.summary{
+  border:1px solid var(--line);border-radius:16px;padding:17px;
+  background:#080b164d;margin:0 0 22px;
+}
+.summary h4{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#c8d5f4;margin:0 0 12px}
+.summary ul{padding-left:18px;margin:0;color:#d9e0f2;line-height:2;font-size:13px}
+.academy .summary h4{color:#d6bfff}
+.actions{margin-top:auto}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;min-height:51px;padding:13px 18px;border-radius:14px;
+  background:linear-gradient(110deg,#367bf4,#5b65f4);color:white;
+  text-decoration:none;font-weight:800;transition:transform .2s,filter .2s;
+}
+.academy .btn{background:linear-gradient(110deg,#7746df,#9868ff)}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.note{color:#8793af;font-size:11px;line-height:1.8;margin:12px 0 0}
+footer{text-align:center;color:#77829e;font-size:12px;padding:28px 0 8px}
+@media(max-width:760px){
+  header{align-items:flex-start}
+  .status{font-size:10px}
+  .cards{grid-template-columns:1fr}
+  .card{min-height:0}
+}
+@media(orientation:landscape) and (max-height:560px){
+  main{padding:18px 28px}
+  header{padding-bottom:16px}
+  .intro{padding-top:20px}
+  .intro h2{margin:7px 0}
+  .cards{margin-top:18px;gap:16px}
+  .card{min-height:0;padding:20px}
+  .card h3{margin:15px 0 6px}
+  .summary{padding:12px;margin-bottom:14px}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true">R</div>
+    <div>
+      <h1>Raheem</h1>
+      <p>Your AI workspace and learning journey</p>
+    </div>
+  </div>
+  <div class="status">YOUR WORKSPACE</div>
+</header>
+
+<section class="intro">
+  <div class="eyebrow">One account. Two destinations.</div>
+  <h2>Welcome to your next chapter.</h2>
+  <p>Choose your destination. Explore AI tools with Raheem, or build real programming skills step by step with Raheem Academy.</p>
+</section>
+
+<section class="cards" aria-label="Raheem services">
+  <article class="card">
+    <div class="card-top">
+      <div class="symbol" aria-hidden="true">🤖</div>
+      <span class="tag">AI ASSISTANT</span>
+    </div>
+    <h3>Raheem AI</h3>
+    <p class="desc">Your intelligent assistant for questions, writing, programming help, and everyday tasks.</p>
+    <div class="summary">
+      <h4>Plan overview</h4>
+      <ul>
+        <li>Free plan: 5 uses per day</li>
+        <li>Pro weekly plan: EGP 200</li>
+        <li>Pro monthly plan: EGP 500</li>
+      </ul>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/chat">Open Raheem AI <span aria-hidden="true">→</span></a>
+      <p class="note">Your existing Raheem AI features and account system remain separate from academy course access.</p>
+    </div>
+  </article>
+
+  <article class="card academy">
+    <div class="card-top">
+      <div class="symbol" aria-hidden="true">🎓</div>
+      <span class="tag">LEARN & BUILD</span>
+    </div>
+    <h3>Raheem Academy</h3>
+    <p class="desc">A structured journey from programming fundamentals to practical projects in computer and mobile development.</p>
+    <div class="summary">
+      <h4>Academy plans</h4>
+      <ul>
+        <li>First 4 lessons: free</li>
+        <li>Monthly membership: EGP 500</li>
+        <li>Yearly membership: EGP 1,000</li>
+        <li>Vodafone Cash: 01092312266</li>
+      </ul>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/academy">Explore Raheem Academy <span aria-hidden="true">→</span></a>
+      <p class="note">Payment must be verified before paid access is activated. Review the academy's terms before subscribing.</p>
+    </div>
+  </article>
+</section>
+
+<footer>Raheem © <span id="year"></span> · Learn carefully. Build confidently.</footer>
+</main>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

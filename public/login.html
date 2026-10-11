@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>رحيم | تسجيل الدخول</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070e;
+  --bg2:#0a1020;
+  --panel:rgba(17,26,43,.85);
+  --line:rgba(139,184,255,.15);
+  --text:#eef3ff;
+  --muted:#8b9cbd;
+  --blue:#8bb8ff;
+  --gold:#f5c451;
+  --green:#7ee0ba;
+  --red:#ff8080;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:radial-gradient(ellipse at top, #0d1730 0%, #05070e 55%) fixed;
+  color:var(--text);
+  font-family:'Cairo',system-ui,Arial,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:20px;
+  overflow-x:hidden;
+  position:relative;
+}
+/* ✨ جزيئات ضوئية */
+body::before,body::after{
+  content:'';position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;pointer-events:none;z-index:0;
+}
+body::before{
+  width:500px;height:500px;
+  background:radial-gradient(circle,#8bb8ff,transparent 70%);
+  top:-150px;left:-150px;
+  animation:float1 18s ease-in-out infinite;
+}
+body::after{
+  width:450px;height:450px;
+  background:radial-gradient(circle,#f5c451,transparent 70%);
+  bottom:-120px;right:-120px;
+  animation:float2 22s ease-in-out infinite;
+}
+@keyframes float1{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(80px,60px)}
+}
+@keyframes float2{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(-60px,-40px)}
+}
+.card{
+  position:relative;z-index:1;
+  width:100%;max-width:460px;
+  background:var(--panel);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:38px 32px 34px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.55),
+    0 0 0 1px rgba(139,184,255,.08) inset,
+    0 0 80px rgba(139,184,255,.06);
+  animation:cardIn .7s cubic-bezier(.2,.9,.3,1);
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(24px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.brand{
+  text-align:center;margin-bottom:26px;
+}
+.brand h1{
+  font-size:34px;font-weight:900;letter-spacing:.5px;
+  background:linear-gradient(120deg,#8bb8ff 0%,#f5c451 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:6px;
+}
+.brand p{color:var(--muted);font-size:13px;font-weight:400}
+.brand .tag{
+  display:inline-block;margin-top:10px;
+  font-size:11px;color:var(--gold);
+  border:1px solid rgba(245,196,81,.3);
+  padding:3px 12px;border-radius:20px;
+  background:rgba(245,196,81,.06);
+}
+.tabs{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4px;padding:4px;
+  background:rgba(10,16,32,.8);
+  border:1px solid var(--line);
+  border-radius:14px;
+  margin-bottom:24px;
+  position:relative;
+}
+.tab{
+  background:transparent;border:0;color:var(--muted);
+  padding:11px 8px;border-radius:10px;
+  font-family:inherit;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+}
+.tab.active{
+  background:linear-gradient(135deg,rgba(139,184,255,.18),rgba(245,196,81,.12));
+  color:var(--text);
+  box-shadow:0 4px 16px rgba(139,184,255,.15);
+}
+.tab:hover:not(.active){color:#c9d6f0}
+.pane{display:none;animation:fadeIn .35s ease}
+.pane.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.btn-google{
+  width:100%;
+  display:flex;align-items:center;justify-content:center;
+  gap:12px;
+  background:#fff;color:#1a1a1a;
+  border:0;border-radius:14px;
+  padding:14px 18px;
+  font-family:inherit;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  margin-bottom:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);
+}
+.btn-google:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.btn-google:active{transform:translateY(0)}
+.btn-google svg{width:20px;height:20px;flex-shrink:0}
+.divider{
+  display:flex;align-items:center;gap:12px;
+  color:var(--muted);font-size:12px;margin:18px 0;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:var(--line);
+}
+.field{margin-bottom:14px}
+.field label{
+  display:block;font-size:12px;color:var(--muted);
+  margin-bottom:6px;font-weight:600;
+}
+.field input{
+  width:100%;
+  background:rgba(10,16,32,.7);
+  border:1px solid var(--line);
+  color:var(--text);
+  font-family:inherit;font-size:14px;
+  padding:13px 14px;
+  border-radius:12px;
+  transition:all .2s;
+  outline:none;
+}
+.field input::placeholder{color:#566688;font-size:13px}
+.field input:focus{
+  border-color:rgba(139,184,255,.5);
+  box-shadow:0 0 0 3px rgba(139,184,255,.12);
+  background:rgba(10,16,32,.95);
+}
+.field input.err{border-color:rgba(255,128,128,.5)}
+.btn-primary{
+  width:100%;
+  background:linear-gradient(135deg,#8bb8ff 0%,#6b96e8 100%);
+  color:#07101e;
+  border:0;border-radius:14px;
+  padding:14px 18px;
+  font-family:inherit;font-size:15px;font-weight:800;
+  cursor:pointer;transition:all .2s;
+  margin-top:6px;
+  box-shadow:0 6px 20px rgba(139,184,255,.25);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(139,184,255,.4)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary:disabled{opacity:.55;cursor:wait;transform:none}
+.msg{
+  padding:11px 14px;border-radius:11px;
+  font-size:13px;margin-bottom:14px;
+  display:none;line-height:1.6;
+}
+.msg.show{display:block;animation:fadeIn .3s}
+.msg.error{background:rgba(255,128,128,.12);border:1px solid rgba(255,128,128,.3);color:#ffb0b0}
+.msg.ok{background:rgba(126,224,186,.12);border:1px solid rgba(126,224,186,.3);color:#a4f0d0}
+.msg.info{background:rgba(139,184,255,.1);border:1px solid rgba(139,184,255,.25);color:#c2d6ff}
+.footer{
+  text-align:center;margin-top:22px;
+  padding-top:18px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:11px;line-height:1.8;
+}
+.footer a{color:var(--blue);text-decoration:none;font-weight:700}
+.footer a:hover{color:var(--gold)}
+.back-home{
+  position:fixed;top:22px;right:22px;z-index:10;
+  background:rgba(17,26,43,.7);
+  border:1px solid var(--line);
+  color:var(--muted);
+  padding:9px 16px;border-radius:12px;
+  font-size:13px;font-weight:600;
+  backdrop-filter:blur(12px);
+  cursor:pointer;transition:all .2s;
+  text-decoration:none;
+}
+.back-home:hover{color:var(--text);border-color:rgba(139,184,255,.4)}
+@media(max-width:480px){
+  .card{padding:30px 22px 26px;border-radius:22px}
+  .brand h1{font-size:28px}
+  .back-home{top:14px;right:14px;padding:8px 12px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<a href="/" class="back-home">→ الرئيسية</a>
+
+<div class="card">
+  <div class="brand">
+    <h1>رحيم</h1>
+    <p>أكاديمية البرمجة من الصفر</p>
+    <span class="tag">✨ تعلّم · اكتب · ابنِ</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="login">تسجيل الدخول</button>
+    <button class="tab" data-tab="signup">إنشاء حساب</button>
+  </div>
+
+  <!-- ═══ تسجيل الدخول ═══ -->
+  <div class="pane active" id="pane-login">
+    <a href="/auth/google" class="btn-google">
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      الدخول بحساب Google
+    </a>
+
+    <div class="divider">أو بالبريد الإلكتروني</div>
+
+    <div class="msg" id="msg-login"></div>
+
+    <form id="form-login" autocomplete="on">
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label>كلمة المرور</label>
+        <input type="password" name="password" placeholder="••••••••" required autocomplete="current-password" minlength="8">
+      </div>
+      <button type="submit" class="btn-primary">تسجيل الدخول</button>
+    </form>
+  </div>
+
+  <!-- ═══ إنشاء حساب ═══ -->
+  <div class="pane" id="pane-signup">
+    <div class="msg" id="msg-signup"></div>
+
+    <form id="form-signup" autocomplete="on">
+      <div class="field">
+        <label>اسم المستخدم</label>
+        <input type="text" name="username" placeholder="مثال: ahmed_dev" required autocomplete="username" minlength="3" maxlength="24">
+      </div>
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label>كلمة المرور</label>
+        <input type="password" name="password" placeholder="8 أحرف على الأقل" required autocomplete="new-password" minlength="8">
+      </div>
+      <div class="field">
+        <label>تأكيد كلمة المرور</label>
+        <input type="password" name="confirmPassword" placeholder="أعد كتابة كلمة المرور" required autocomplete="new-password" minlength="8">
+      </div>
+      <button type="submit" class="btn-primary">إنشاء الحساب</button>
+    </form>
+  </div>
+
+  <div class="footer">
+    🤍 مدعوم بواسطة <a href="https://t.me/boodyalnorg1320" target="_blank">Raheem™</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ═══ التبويبات ═══
+  const tabs = document.querySelectorAll('.tab');
+  const panes = {
+    login: document.getElementById('pane-login'),
+    signup: document.getElementById('pane-signup')
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const key = tab.dataset.tab;
+      tabs.forEach(t => t.classList.toggle('active', t === tab));
+      Object.entries(panes).forEach(([k, p]) => {
+        p.classList.toggle('active', k === key);
+      });
+    });
+  });
+
+  // ═══ أدوات ═══
+  function showMsg(el, text, type){
+    el.textContent = text;
+    el.className = 'msg show ' + type;
+  }
+  function hideMsg(el){
+    el.className = 'msg';
+    el.textContent = '';
+  }
+
+  // ═══ تسجيل الدخول ═══
+  const formLogin = document.getElementById('form-login');
+  const msgLogin = document.getElementById('msg-login');
+  const btnLogin = formLogin.querySelector('button[type="submit"]');
+
+  formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMsg(msgLogin);
+
+    const email = formLogin.email.value.trim();
+    const password = formLogin.password.value;
+
+    if (!email || !password) {
+      showMsg(msgLogin, '❌ اكتب البريد وكلمة المرور', 'error');
+      return;
+    }
+    if (password.length < 8) {
+      showMsg(msgLogin, '❌ كلمة المرور قصيرة جدًا', 'error');
+      return;
+    }
+
+    btnLogin.disabled = true;
+    btnLogin.textContent = '⏳ جاري الدخول...';
+
+    try {
+      const res = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (data.ok) {
+        showMsg(msgLogin, '✅ تم الدخول — جاري التحويل...', 'ok');
+        setTimeout(() => { window.location.href = '/'; }, 600);
+      } else {
+        const errMap = {
+          invalid_credentials: '❌ البريد أو كلمة المرور غلط',
+          login_failed: '❌ حصلت مشكلة، جرب تاني'
+        };
+        showMsg(msgLogin, errMap[data.error] || '❌ فشل تسجيل الدخول', 'error');
+      }
+    } catch (err) {
+      showMsg(msgLogin, '❌ مشكلة في الاتصال بالسيرفر', 'error');
+    } finally {
+      btnLogin.disabled = false;
+      btnLogin.textContent = 'تسجيل الدخول';
+    }
+  });
+
+  // ═══ إنشاء حساب ═══
+  const formSignup = document.getElementById('form-signup');
+  const msgSignup = document.getElementById('msg-signup');
+  const btnSignup = formSignup.querySelector('button[type="submit"]');
+
+  formSignup.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMsg(msgSignup);
+
+    const username = formSignup.username.value.trim();
+    const email = formSignup.email.value.trim();
+    const password = formSignup.password.value;
+    const confirmPassword = formSignup.confirmPassword.value;
+
+    // تحقق
+    if (!/^[a-zA-Z0-9_\u0600-\u06FF]{3,24}$/.test(username)) {
+      showMsg(msgSignup, '❌ اسم المستخدم: 3-24 حرف (إنجليزي/عربي/أرقام/_)', 'error');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showMsg(msgSignup, '❌ البريد الإلكتروني غلط', 'error');
+      return;
+    }
+    if (password.length < 8) {
+      showMsg(msgSignup, '❌ كلمة المرور 8 أحرف على الأقل', 'error');
+      return;
+    }
+    if (password !== confirmPassword) {
+      showMsg(msgSignup, '❌ كلمة المرور مش متطابقة', 'error');
+      return;
+    }
+
+    btnSignup.disabled = true;
+    btnSignup.textContent = '⏳ جاري الإنشاء...';
+
+    try {
+      const res = await fetch('/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ username, email, password, confirmPassword })
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (data.ok) {
+        showMsg(msgSignup, '🎉 تم إنشاء الحساب — جاري التحويل...', 'ok');
+        setTimeout(() => { window.location.href = '/'; }, 700);
+      } else {
+        const errMap = {
+          invalid_username: '❌ اسم المستخدم غير صالح',
+          invalid_email: '❌ البريد الإلكتروني غير صالح',
+          weak_password: '❌ كلمة المرور ضعيفة',
+          email_exists: '❌ البريد مستخدم من قبل',
+          username_exists: '❌ اسم المستخدم مأخوذ',
+          account_exists: '❌ الحساب موجود بالفعل',
+          password_mismatch: '❌ كلمة المرور مش متطابقة',
+          register_failed: '❌ حصلت مشكلة، جرب تاني'
+        };
+        showMsg(msgSignup, errMap[data.error] || '❌ فشل إنشاء الحساب', 'error');
+      }
+    } catch (err) {
+      showMsg(msgSignup, '❌ مشكلة في الاتصال بالسيرفر', 'error');
+    } finally {
+      btnSignup.disabled = false;
+      btnSignup.textContent = 'إنشاء الحساب';
+    }
+  });
+
+  // ═══ تفعيل التاب لو في hash ═══
+  if (location.hash === '#signup') {
+    document.querySelector('.tab[data-tab="signup"]')?.click();
+  }
+
+})();
+</script>
+</body>
+</html>

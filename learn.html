@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>قاعة التعلّم | أكاديمية رحيم</title>
+<style>
+:root{color-scheme:dark;--bg:#080d17;--panel:#111a2b;--line:#293650;--text:#eef3ff;--muted:#aab8d0;--blue:#8bb8ff;--green:#78e0b4;--red:#ff9a9a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.85 system-ui,Arial,sans-serif}
+button,a{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:265px minmax(0,1fr)}
+aside{background:#0d1422;border-left:1px solid var(--line);padding:18px;min-width:0}
+.brand{font-size:21px;font-weight:850;margin-bottom:5px}.muted{color:var(--muted)}.small{font-size:12px}
+.progressbox{background:var(--panel);padding:14px;border:1px solid var(--line);border-radius:14px;margin:18px 0}
+.track{height:7px;background:#27344a;border-radius:9px;overflow:hidden;margin-top:9px}.fill{height:100%;width:0;background:var(--green);transition:width .2s}
+nav{display:grid;gap:7px}.navitem{width:100%;text-align:right;background:transparent;border:1px solid transparent;color:var(--text);border-radius:10px;padding:10px}
+.navitem.active{background:#17243a;border-color:#354d70}.navitem:disabled{opacity:.42;cursor:not-allowed}
+main{min-width:0;padding:22px clamp(14px,3vw,42px);max-width:1250px;width:100%;margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:15px}
+.pill{border:1px solid var(--line);border-radius:30px;padding:5px 12px;color:var(--muted);font-size:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:18px;margin-top:20px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:clamp(15px,2vw,25px);min-width:0}
+h1{font-size:clamp(24px,3vw,36px);line-height:1.4;margin:10px 0}h2{font-size:21px;margin-top:0}h3{font-size:17px}
+p,li{color:#d0daeb}.lessonText{font-size:16px}.lessonText li{margin:8px 0}
+.callout{border-right:3px solid var(--blue);padding:8px 13px;background:#152238;border-radius:8px;margin:15px 0}
+code,pre{font-family:ui-monospace,Consolas,monospace;direction:ltr;text-align:left}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b12;border:1px solid var(--line);padding:16px;border-radius:12px;color:#a9e6c9;font-size:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:1px solid var(--line);border-radius:10px;padding:10px 16px;background:#1a2941;color:var(--text)}
+.btn.primary{background:var(--blue);color:#07101d;border-color:var(--blue);font-weight:800}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.question{padding:14px 0;border-bottom:1px solid var(--line)}.question p{margin:0 0 9px}
+.option{display:block;border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin:7px 0;color:var(--text)}
+.option:has(input:checked){border-color:var(--blue);background:#192941}
+.feedback{padding:12px;border-radius:10px;margin-top:12px;display:none}.feedback.good{display:block;background:#123326;color:#a9f0d1}.feedback.bad{display:block;background:#3b2027;color:#ffd0d0}
+.tip{font-size:13px;color:var(--muted)}.codebox{margin:15px 0}.footer{margin-top:22px;border-top:1px solid var(--line);padding-top:15px}
+@media(max-width:850px){.app{grid-template-columns:1fr}aside{border-left:0;border-bottom:1px solid var(--line)}nav{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}main{padding:15px}}
+@media(orientation:landscape) and (min-width:600px){.app{grid-template-columns:245px minmax(0,1fr)}aside{height:100vh;position:sticky;top:0;overflow:auto}.layout{grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+<div class="brand">رحيم <span style="color:var(--blue)">أكاديمي</span></div>
+<div class="small muted">مسار تأسيس البرمجة</div>
+<div class="progressbox">
+<div>تقدّمك في المسار</div>
+<strong id="progressLabel">0 من 4 دروس</strong>
+<div class="track"><div class="fill" id="progressFill"></div></div>
+<div class="small muted" style="margin-top:7px">اجتز الاختبار لفتح الدرس التالي.</div>
+</div>
+<h3>المنهج</h3>
+<nav id="lessonNav"></nav>
+<div class="footer"><a href="/academy" class="muted">← صفحة الأكاديمية</a><p class="tip">التقدم في هذه النسخة محفوظ على هذا المتصفح فقط.</p></div>
+</aside>
+<main>
+<div class="top"><div><strong>قاعة التعلّم</strong><div class="small muted">افهم الفكرة ثم طبّقها بنفسك</div></div><span class="pill" id="lessonCount">الدرس 1 من 4</span></div>
+<div class="layout">
+<section class="panel">
+<div class="small" style="color:var(--blue)" id="lessonKicker">المرحلة الأولى</div>
+<h1 id="lessonTitle"></h1>
+<div class="lessonText" id="lessonBody"></div>
+<div class="callout" id="lessonGoal"></div>
+<div class="codebox"><h3>مثال عملي</h3><pre id="lessonCode"></pre><p id="codeExplain" class="tip"></p></div>
+<h3>طبّق بنفسك</h3>
+<p id="practiceText"></p>
+<div class="actions"><button class="btn" id="prevBtn">الدرس السابق</button><button class="btn primary" id="nextBtn" disabled>الدرس التالي 🔒</button></div>
+</section>
+<section class="panel">
+<h2>اختبر فهمك</h2>
+<p class="muted">اختر إجابة كل سؤال، ثم اضغط تصحيح. لازم تجاوب صح عن كل الأسئلة لفتح الدرس التالي، وتقدر تعيد المحاولة.</p>
+<form id="quizForm"></form>
+<button class="btn primary" id="checkBtn" type="button">تصحيح الإجابات</button>
+<div id="feedback" class="feedback" aria-live="polite"></div>
+<div class="footer"><h3>قاعدة مهمّة</h3><p class="tip">لو مش فاهم، ارجع للشرح وجرّب المثال بإيدك. الهدف إنك تقدر تشرح الفكرة بكلامك، مش مجرد اختيار الإجابة الصح.</p></div>
+</section>
+</div>
+<p class="tip">هذه نسخة تأسيسية أولية. الاختبارات الحالية بسيطة، والتقدم محلي؛ يلزم إضافة تدريبات أعمق وحفظ مركزي ومراجعة عملية قبل اعتمادها كمنهج مدفوع مكتمل.</p>
+</main>
+</div>
+<script>
+const lessons = [
+{
+title:"يعني إيه برمجة؟",
+kicker:"المرحلة 1 · فهم الفكرة",
+body:`<p>البرمجة هي إنك تكتب تعليمات واضحة للكمبيوتر علشان ينفّذ مهمة. الكمبيوتر سريع في التنفيذ، لكنه محتاج تعليمات دقيقة.</p>
+<h3>مثال من الحياة</h3><p>لو هتشرح لحد إزاي يعمل كوب شاي، هتحدد الخطوات بالترتيب. ده قريب من فكرة الخوارزمية: خطوات مرتبة لحل مشكلة.</p>
+<h3>ثلاث كلمات أساسية</h3><ul><li><b>المشكلة:</b> المهمة اللي عايزين نحلها.</li><li><b>الخوارزمية:</b> خطوات الحل.</li><li><b>البرنامج:</b> تعليمات مكتوبة بلغة يفهمها الكمبيوتر وينفذها.</li></ul>`,
+goal:"هدف الدرس: تقدر تشرح الفرق بين المشكلة والخطوات والبرنامج بمثال من عندك.",
+code:'1. اقرأ الرقم الأول\\n2. اقرأ الرقم الثاني\\n3. اجمع الرقمين\\n4. اعرض الناتج',
+explain:"دي خوارزمية مكتوبة بكلام مفهوم. لسه مش كود بلغة برمجة.",
+practice:"اكتب في ورقة خطوات تحضير مشروب بتحبه. راجع الترتيب: هل كل خطوة واضحة؟ هل في خطوة ناقصة؟",
+questions:[
+{q:"يعني إيه برمجة؟",opts:["كتابة تعليمات لتنفيذ مهمة","تغيير لون الشاشة فقط","تشغيل الكمبيوتر من غير تعليمات"],a:0},
+{q:"إيه الخوارزمية؟",opts:["اسم الكمبيوتر","خطوات مرتبة لحل مشكلة","نوع من الشاشات"],a:1},
+{q:"إيه اللي يخلي الخطوات جيدة؟",opts:["تكون غامضة","تكون مرتبة وواضحة","تكون عشوائية"],a:1}
+]},
+{
+title:"من الفكرة إلى الكود",
+kicker:"المرحلة 1 · ترتيب الخطوات",
+body:`<p>قبل كتابة الكود، افهم المطلوب وحدد المدخلات والنتيجة والخطوات.</p><ul><li><b>المدخلات:</b> المعلومات اللي هنبدأ بيها.</li><li><b>المعالجة:</b> العملية اللي هنعملها.</li><li><b>المخرجات:</b> النتيجة اللي هنعرضها.</li></ul><p>مثلًا في جمع رقمين: المدخلات هي الرقمان، والمعالجة هي الجمع، والمخرجات هي الناتج.</p><h3>ليه الترتيب مهم؟</h3><p>لو حاولت تعرض الناتج قبل ما تجمع الرقمين، هتكون بتنفذ الخطوات بترتيب غلط.</p>`,
+goal:"هدف الدرس: تحدد المدخلات والمعالجة والمخرجات لأي مسألة بسيطة.",
+code:'المدخلات: 4 و 3\\nالمعالجة: 4 + 3\\nالمخرجات: 7',
+explain:"افصل بين البيانات اللي تدخل، والعملية، والنتيجة اللي تخرج.",
+practice:"اختار مسألة حسابية من عندك، واكتب مدخلاتها ومعالجتها ومخرجاتها.",
+questions:[
+{q:"في مسألة جمع رقمين، الرقمين يمثلوا إيه؟",opts:["المخرجات","المدخلات","المعالجة"],a:1},
+{q:"عملية الجمع تمثل إيه؟",opts:["المعالجة","المدخلات","اسم البرنامج"],a:0},
+{q:"الناتج النهائي يمثل إيه؟",opts:["المدخلات","المخرجات","خطأ في البرنامج"],a:1}
+]},
+{
+title:"أول سطر JavaScript",
+kicker:"المرحلة 2 · أول لغة برمجة",
+body:`<p>هنبدأ بلغة JavaScript، وهي لغة تُستخدم في مواقع الويب وتطبيقات أخرى. السطر التالي يطلب عرض رسالة.</p><h3>نفهم السطر جزءًا جزءًا</h3><ul><li><code>console</code>: أداة تعرض معلومات في وحدة التحكم.</li><li><code>log</code>: أمر لعرض قيمة.</li><li>الأقواس تحتوي على الشيء اللي عايزين نعرضه.</li><li>علامتا الاقتباس تحددان النص.</li></ul><p>النص لازم يكون بين اقتباسين. الأقواس والفواصل مهمة، لأن الكمبيوتر ينفذ ما تكتبه حرفيًا.</p>`,
+goal:"هدف الدرس: تميّز بين الأمر والنص الذي سيظهر.",
+code:'console.log("أهلاً بك!");',
+explain:'عند تشغيل السطر في بيئة JavaScript، تظهر الرسالة في وحدة التحكم. الصفحة التعليمية هنا تشرح المثال لكنها ليست محرر كود كاملًا.',
+practice:"غيّر الرسالة المكتوبة داخل الاقتباسين إلى جملة من اختيارك، مع الإبقاء على باقي السطر.",
+questions:[
+{q:"ما وظيفة console.log()؟",opts:["عرض قيمة أو رسالة في وحدة التحكم","إغلاق الجهاز","إنشاء صورة تلقائيًا"],a:0},
+{q:"أين نكتب النص في المثال؟",opts:["خارج السطر","داخل علامتي الاقتباس","مكان الأقواس كلها"],a:1},
+{q:"لو أردت تغيير الرسالة، ماذا تغيّر؟",opts:["النص داخل الاقتباسين","اسم اللغة","كل علامات الترقيم عشوائيًا"],a:0}
+]},
+{
+title:"المتغيرات: تخزين المعلومات",
+kicker:"المرحلة 2 · البيانات",
+body:`<p>المتغير اسم نستخدمه للوصول إلى قيمة نريد الاحتفاظ بها أثناء تشغيل البرنامج. تخيله كاسم على صندوق يحتوي معلومة.</p><h3>مثال</h3><p>هنا أنشأنا متغيرًا اسمه <code>userName</code> وخزّنا فيه نصًا. ثم عرضنا القيمة باستخدام اسم المتغير.</p><ul><li><code>let</code>: تُستخدم لتعريف متغير يمكن تغيير قيمته لاحقًا.</li><li><code>=</code>: في هذا السياق تعني إسناد القيمة للمتغير، وليست مقارنة.</li><li><code>userName</code>: اسم اخترناه للمتغير.</li></ul><p>اختر أسماء واضحة، وافتكر أن النصوص تُكتب بين اقتباسين.</p>`,
+goal:"هدف الدرس: تشرح معنى المتغير، وتحدد اسمه وقيمته في المثال.",
+code:'let userName = "Ali";\\nconsole.log(userName);',
+explain:'المتوقع أن تعرض وحدة التحكم Ali. الاسم userName هو اسم المتغير، وAli هي القيمة المخزنة.',
+practice:"غيّر القيمة إلى اسم آخر، ثم اكتب ما تتوقع ظهوره قبل تشغيل الكود.",
+questions:[
+{q:"ما وظيفة المتغير؟",opts:["تخزين قيمة نستخدمها باسم","حذف البرنامج دائمًا","منع عرض النصوص"],a:0},
+{q:"في let age = 16; ما اسم المتغير؟",opts:["16","let","age"],a:2},
+{q:"في let city = \"Cairo\"; ما القيمة النصية؟",opts:["city","Cairo","let"],a:1}
+]}
+];
+
+const STORAGE_KEY="raheem_academy_foundations_v1";
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")||{}}catch(e){saved={}}
+if(!saved.passed)saved.passed=[];
+let current=0;
+const $=id=>document.getElementById(id);
+function isPassed(i){return saved.passed.includes(i)}
+function unlocked(i){return i===0||isPassed(i-1)}
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(saved))}catch(e){}}
+function renderNav(){
+$("lessonNav").innerHTML="";
+lessons.forEach((l,i)=>{
+const b=document.createElement("button");b.className="navitem"+(i===current?" active":"");
+b.disabled=!unlocked(i);b.textContent=(isPassed(i)?"✓ ":(!unlocked(i)?"🔒 ":""))+(i+1)+". "+l.title;
+b.onclick=()=>{if(unlocked(i)){current=i;render()}};
+$("lessonNav").appendChild(b)
+});
+const n=saved.passed.length;
+$("progressLabel").textContent=n+" من "+lessons.length+" دروس مجتازة";
+$("progressFill").style.width=(n/lessons.length*100)+"%";
+}
+function render(){
+const l=lessons[current];
+$("lessonKicker").textContent=l.kicker;
+$("lessonTitle").textContent=l.title;
+$("lessonBody").innerHTML=l.body;
+$("lessonGoal").textContent=l.goal;
+$("lessonCode").textContent=l.code;
+$("codeExplain").textContent=l.explain;
+$("practiceText").textContent=l.practice;
+$("lessonCount").textContent="الدرس "+(current+1)+" من "+lessons.length;
+$("prevBtn").disabled=current===0;
+$("nextBtn").disabled=!isPassed(current)||current===lessons.length-1;
+$("nextBtn").textContent=current===lessons.length-1?(isPassed(current)?"أنهيت دروس التأسيس ✓":"اجتز الاختبار أولًا"):(isPassed(current)?"الدرس التالي ←":"الدرس التالي 🔒");
+$("feedback").className="feedback";$("feedback").textContent="";
+$("quizForm").innerHTML="";
+l.questions.forEach((q,qi)=>{
+const box=document.createElement("div");box.className="question";
+const title=document.createElement("p");title.innerHTML="<b>"+(qi+1)+". "+q.q+"</b>";box.appendChild(title);
+q.opts.forEach((opt,oi)=>{
+const label=document.createElement("label");label.className="option";
+const input=document.createElement("input");input.type="radio";input.name="q"+qi;input.value=oi;input.style.marginLeft="9px";
+label.appendChild(input);label.appendChild(document.createTextNode(opt));box.appendChild(label)
+});
+$("quizForm").appendChild(box)
+});
+renderNav()
+}
+$("checkBtn").onclick=()=>{
+const l=lessons[current];let score=0,answered=0;
+l.questions.forEach((q,qi)=>{
+const picked=document.querySelector('input[name="q'+qi+'"]:checked');
+if(picked){answered++;if(Number(picked.value)===q.a)score++}
+});
+const f=$("feedback");
+if(answered<l.questions.length){f.className="feedback bad";f.textContent="جاوب عن كل الأسئلة الأول، وبعدها اضغط تصحيح.";return}
+if(score===l.questions.length){
+if(!isPassed(current))saved.passed.push(current);
+persist();f.className="feedback good";f.textContent="ممتاز! إجاباتك كلها صحيحة. راجع هدف الدرس وحاول تشرح الفكرة بكلامك قبل ما تكمل.";
+$("nextBtn").disabled=current===lessons.length-1;
+$("nextBtn").textContent=current===lessons.length-1?"أنهيت دروس التأسيس ✓":"الدرس التالي ←";
+renderNav()
+}else{
+f.className="feedback bad";f.textContent="نتيجتك "+score+" من "+l.questions.length+". راجع الشرح والمثال وحاول تاني. مش هيتفتح الدرس التالي لحد ما تجاوب صح عن كل الأسئلة.";
+}
+};
+$("prevBtn").onclick=()=>{if(current>0){current--;render()}};
+$("nextBtn").onclick=()=>{if(isPassed(current)&&current<lessons.length-1){current++;render()}};
+render();
+</script>
+</body>
+</html>
